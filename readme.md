@@ -14,7 +14,7 @@
 
 This repo is what I use to power my personal blog and portfolio site [transitivebullsh.it](https://transitivebullsh.it).
 
-It uses Notion as a CMS, [react-notion-x](https://github.com/NotionX/react-notion-x), [Next.js](https://nextjs.org/), and [Vercel](https://vercel.com).
+It uses Notion as a CMS, [react-notion-x](https://github.com/NotionX/react-notion-x), [Next.js](https://nextjs.org/), and [Firebase App Hosting](https://firebase.google.com/docs/app-hosting).
 
 ## Features
 
@@ -29,7 +29,7 @@ It uses Notion as a CMS, [react-notion-x](https://github.com/NotionX/react-notio
 - Full support for dark mode
 - Quick search via CMD+K / CMD+P
 - Responsive for different devices
-- Optimized for Next.js and Vercel
+- Optimized for Next.js and Firebase App Hosting
 
 ## Demos
 
@@ -46,8 +46,8 @@ This project requires a recent version of Node.js (we recommend >= 16).
 2. Change a few values in [site.config.ts](./site.config.ts)
 3. `npm install`
 4. `npm run dev` to test locally
-5. `npm run deploy` to deploy to vercel 💪
-6. Double check your [Vercel project settings](#vercel-configuration)
+5. `npm run deploy` to deploy to Firebase App Hosting 💪
+6. Double check your [Firebase App Hosting project settings](#firebase-app-hosting-configuration)
 
 I tried to make configuration as easy as possible — All you really need to do to get started is edit `rootNotionPageId`.
 
@@ -59,15 +59,20 @@ In order to find your Notion workspace ID (optional), just load any of your site
 
 I recommend setting up a collection on your home page that contains all of your articles / projects / content. There are no structural constraints on your Notion workspace, however, so feel free to add content as you normally would in Notion.
 
-### Vercel Configuration
+### Firebase App Hosting Configuration
 
-**Social media preview images won't work by default on Vercel**. You'll need to ensure that your site doesn't require auth.
+**Firebase App Hosting** is a fully-managed hosting service for web apps built with Next.js or Angular. It provides a streamlined developer experience with GitHub integration for continuous deployment, automatic HTTPS, global CDN distribution, and built-in monitoring. Firebase App Hosting handles the infrastructure complexity of deploying server-side rendering (SSR) and static site generation (SSG) applications.
 
-From your Vercel project settings, you'll want to **disable Vercel Authentication** from `Project -> Settings -> Deployment Protection`.
+To configure your Firebase App Hosting:
 
-![How to disable Vercel Deployment Protection setting](https://github.com/user-attachments/assets/a1eb5a1f-da7a-497e-b4f6-f7e851a6cd8a 'How to disable Vercel Deployment Protection setting which causes social media preview image endpoint to return 401 Unauthorized')
+1. Make sure you have the Firebase CLI installed: `npm install -g firebase-tools`
+2. Log in to Firebase: `firebase login`
+3. Create a Firebase App Hosting backend: `firebase apphosting:backends:create --project YOUR_PROJECT_ID`
+4. Follow the prompts to connect your GitHub repository and configure deployment settings
 
-💡 If you forget to do this your site will return `401 Unauthorized` responses when crawlers are trying to retrieve the images.
+Your app will be available at a URL in the format: `backend-id--project-id.region.hosted.app`
+
+💡 Firebase App Hosting automatically handles continuous deployment from your GitHub repository. When you push changes to your configured branch, a new rollout will be triggered automatically.
 
 ## URL Paths
 
@@ -140,7 +145,7 @@ Dark mode is fully supported and can be toggled via the sun / moon icon in the f
 
 All Open Graph and social meta tags are generated from your Notion content, which makes social sharing look professional by default.
 
-Social images are generated automatically using [Vercel OG Image Generation](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation). You can tweak the default React template for social images by editing [api/social-images.tsx](./pages/api/social-image.tsx).
+Social images are generated automatically. You can tweak the default React template for social images by editing [api/social-images.tsx](./pages/api/social-image.tsx). Firebase App Hosting fully supports Next.js API routes, so this functionality will work seamlessly.
 
 You can view an example social image live in production [here](https://transitivebullsh.it/api/social-image?id=dfc7f709-ae3e-42c6-9292-f6543d5586f0).
 
@@ -182,9 +187,17 @@ To enable, just add a `NEXT_PUBLIC_POSTHOG_ID` environment variable, which will 
 
 ## Environment Variables
 
-If you're using Redis, analytics, or any other feature which requires environment variables, then you'll need to [add them to your Vercel project](https://vercel.com/docs/concepts/projects/environment-variables).
+If you're using Redis, analytics, or any other feature which requires environment variables, you'll need to configure them for your Firebase App Hosting project.
 
-If you want to test your redis builds with GitHub Actions, then you'll need to edit the [default build action](./.github/workflows/build.yml) to add `REDIS_HOST` and `REDIS_PASSWORD`. Here is an [example from my personal branch](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/blob/transitive-bullshit/.github/workflows/build.yml#L17-L21). You'll also need to add these environment variables to your GitHub repo as [repository secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
+You can set environment variables for your Firebase App Hosting backend using the Firebase CLI:
+
+```bash
+firebase apphosting:backends:update YOUR_BACKEND_ID --project YOUR_PROJECT_ID --set-env-vars KEY=VALUE,KEY2=VALUE2
+```
+
+Alternatively, you can create a `.env` file in your project root and it will be used during the build process.
+
+If you want to test your redis builds with GitHub Actions, you'll need to edit the [default build action](./.github/workflows/build.yml) to add `REDIS_HOST` and `REDIS_PASSWORD`. You'll also need to add these environment variables to your GitHub repo as [repository secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
 
 ## Contributing
 

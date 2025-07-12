@@ -47,12 +47,9 @@ export default siteConfig({
   //   '/foo': '067dd719a912471ea9a3ac10710e7fdf',
   //   '/bar': '0be6efce9daf42688f65c76b89f8eb27'
   // }
-  pageUrlOverrides: process.env.PAGE_URL_OVERRIDES ? 
-    JSON.parse(process.env.PAGE_URL_OVERRIDES) : null,
-
   // whether to use the default notion navigation style or a custom one with links to
   // important pages. To use `navigationLinks`, set `navigationStyle` to `custom`.
   navigationStyle:  process.env.NAVIGATION_STYLE === 'default' ? 'default': 'custom',
-  navigationLinks: process.env.NAVIGATION_LINKS ? 
-    JSON.parse(process.env.NAVIGATION_LINKS) : undefined
+  // navigationLinks: process.env.NAVIGATION_LINKS ? 
+    // JSON.parse(process.env.NAVIGATION_LINKS) : undefined
 })
