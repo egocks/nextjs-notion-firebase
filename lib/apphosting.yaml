@@ -1,0 +1,32 @@
+env:
+  - variable: SITE_NAME
+    value: Self-Developing Dev
+
+  - variable: SITE_DOMAIN
+    value: www.selfdeveloping.dev
+
+  - variable: SITE_AUTHOR
+    value: Eliel Goco
+
+  - variable: SITE_DESCRIPTION
+    value: Eliel's Personal Blog
+
+  - variable: SOCIAL_TWITTER
+    value: elielgoco 
+
+  - variable: SOCIAL_GITHUB
+    value: egocks
+
+  - variable: SOCIAL_LINKEDIN
+    value: eliel-goco
+
+  - variable: NOTION_ROOT_PAGE_ID
+    secret: notionRootPageId
+
+    # Same as API_KEY above but with the long form secret reference as defined by Cloud Secret Manager.
+  - variable: ENABLE_PREVIEW_IMAGES
+    value: true
+
+    # Same as API_KEY above but with the long form secret reference with pinned version.
+  - variable: ENABLE_REDIS
+    value: fales
