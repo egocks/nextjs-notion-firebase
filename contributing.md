@@ -4,20 +4,20 @@ Suggestions and pull requests are highly encouraged. Have a look at the [open is
 
 ## Development
 
-To develop the project locally, you'll need a recent version of Node.js and `pnpm` installed globally.
+To develop the project locally, you'll need a recent version of Node.js and `npm` installed globally.
 
-To get started, clone the repo and run `pnpm` from the root directory:
+To get started, clone the repo and run `npm install` from the root directory:
 
 ```bash
 git clone https://github.com/transitive-bullshit/nextjs-notion-starter-kit
 cd nextjs-notion-starter-kit
-pnpm
+npm install
 ```
 
 Now that your dependencies are installed, you can run the local Next.js dev server:
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 You should now be able to open `http://localhost:3000` to view the webapp.
@@ -27,7 +27,7 @@ You should now be able to open `http://localhost:3000` to view the webapp.
 To build for production, you can run:
 
 ```bash
-pnpm build
+npm run build
 ```
 
 Which just runs `next build` under the hood.
@@ -39,15 +39,15 @@ If you are making changes to `react-notion-x` and want to test them out with `ne
 Once you have `react-notion-x` set up and built locally, you can link these local deps into `nextjs-notion-starter-kit`:
 
 ```bash
-pnpm deps:link
+npm run deps:link
 ```
 
-With this setup, in one tab, you can run `pnpm dev` to keep `react-notion-x` up-to-date, and in another tab, you can run `pnpm dev` to keep `nextjs-notion-starter-kit` up-to-date.
+With this setup, in one tab, you can run `npm run dev` to keep `react-notion-x` up-to-date, and in another tab, you can run `npm run dev` to keep `nextjs-notion-starter-kit` up-to-date.
 
 ### Gotchas
 
-Whenever you make a change to one of the `react-notion-x` packages, it will automatically be recompiled into its respective `build` folder, and the `pnpm dev` from `nextjs-notion-starter-kit` should hot-reload it in the browser.
+Whenever you make a change to one of the `react-notion-x` packages, it will automatically be recompiled into its respective `build` folder, and the `npm run dev` from `nextjs-notion-starter-kit` should hot-reload it in the browser.
 
-Sometimes, this process gets a little out of whack, and if you're not sure what's going on, I usually just quit one or both of the `pnpm dev` commands and restart them.
+Sometimes, this process gets a little out of whack, and if you're not sure what's going on, I usually just quit one or both of the `npm run dev` commands and restart them.
 
-If you're seeing something unexpected while debugging with Next.js, try running `rm -rf .next` to refresh the Next.js cache before running `pnpm dev` again.
+If you're seeing something unexpected while debugging with Next.js, try running `rm -rf .next` to refresh the Next.js cache before running `npm run dev` again.
